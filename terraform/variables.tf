@@ -1,29 +1,49 @@
+  # Variáveis da VPC
+  
   variable "vpc_cidr" {
     description = "Endereço da VPC"
   }
   variable "vpc_name" {}
-  variable "cidr_privada1" {
+  variable "cidr_privada1" {}
+  variable "cidr_privada2" {}
+  variable "cidr_publica1" {}
+  variable "cidr_publica2" {}
+  variable "nome_privada1" {}
+  variable "nome_privada2" {}
+  variable "nome_publica1" {}
+  variable "nome_publica2" {}
 
-  }
-  variable "cidr_privada2" {
+# Variáveis do EC2
 
-  }
-  variable "cidr_publica1" {
+variable "ami_image" {}
+variable "type_instance" {}
 
-  }
-  variable "cidr_publica2" {
+# Variáveis BD
 
+variable "allo_stora" {
+  description = "Irá alocar espaço de armazenamento"
 }
 
-  variable "nome_privada1" {
+variable "dbname" {}
 
-  }
-  variable "nome_privada2" {
+variable "engine" {
+  description = "Engine do Banco"
+}
 
-  }
-  variable "nome_publica1" {
+variable "v_engine" {
+  description = "Versão da engine do Banco"
+}
 
-  }
-  variable "nome_publica2" {
+variable "classinstance" {}
 
-  }
+variable "user" {
+  description = "user do Banco"
+}
+
+variable "password" {
+  description = "Senha do Banco"
+}
+
+variable "parameter_group_name" {}
+
+variable "port" {}
