@@ -1,3 +1,7 @@
+  variable "region" {
+    default = "us-east-1"
+  }
+  
   # Variáveis da VPC
   
   variable "vpc_cidr" {

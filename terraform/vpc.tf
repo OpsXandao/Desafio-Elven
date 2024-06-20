@@ -13,9 +13,9 @@ resource "aws_vpc" "main" {
 
 #   Criar Subnets
 resource "aws_subnet" "publica1" {
-  vpc_id     = aws_vpc.main.id
-  cidr_block = var.cidr_publica1
-
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = var.cidr_publica1
+  availability_zone = "${var.region}a"
   tags = {
     Name = var.nome_publica1
   }
@@ -24,8 +24,10 @@ resource "aws_subnet" "publica1" {
   ]
 }
 resource "aws_subnet" "publica2" {
-  vpc_id     = aws_vpc.main.id
-  cidr_block = var.cidr_publica2
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = var.cidr_publica2
+  availability_zone = "${var.region}b"
+
 
   tags = {
     Name = var.nome_publica2
@@ -35,9 +37,9 @@ resource "aws_subnet" "publica2" {
   ]
 }
 resource "aws_subnet" "privada1" {
-  vpc_id     = aws_vpc.main.id
-  cidr_block = var.cidr_privada1
-
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = var.cidr_privada1
+  availability_zone = "${var.region}a"
   tags = {
     Name = var.nome_privada1
   }
@@ -46,9 +48,9 @@ resource "aws_subnet" "privada1" {
   ]
 }
 resource "aws_subnet" "privada2" {
-  vpc_id     = aws_vpc.main.id
-  cidr_block = var.cidr_privada2
-
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = var.cidr_privada2
+  availability_zone = "${var.region}b"
   tags = {
     Name = var.nome_privada2
   }
@@ -123,6 +125,13 @@ resource "aws_nat_gateway" "nat-gateway-2" {
   ]
 }
 
+#   Criar Subnet do BD
+resource "aws_db_subnet_group" "db_subnet_group" {
+  name       = "dbsubnet"
+  subnet_ids = [aws_subnet.privada1.id, aws_subnet.privada2.id]
+}
+
+
 #   Cria Tabelas de Roteamento
 resource "aws_route_table" "publica" {
   vpc_id = aws_vpc.main.id
@@ -190,3 +199,4 @@ resource "aws_route_table_association" "privada2" {
   subnet_id      = aws_subnet.privada2.id
   route_table_id = aws_route_table.privada2.id
 }
+
