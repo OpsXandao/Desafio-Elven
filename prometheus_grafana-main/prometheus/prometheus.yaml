@@ -1,0 +1,26 @@
+# Arquivo: prometheus/prometheus.yaml
+global:
+  scrape_interval: 15s  # Por padrão, o alvo será 'raspado' a cada 15 segundos
+
+scrape_configs:
+
+  - job_name: 'prometheus'
+
+    # Esse valor irá sobreescrever o valor padrão global para esse alvo
+    scrape_interval: 5s
+
+    metrics_path: /metrics # Endpoint padrão para a raspagem das métricas
+    static_configs:
+      - targets: ['localhost:9090']
+
+  - job_name: 'amazon_ec2'
+    ec2_sd_configs:
+      - region: us-east-1
+        access_key: AKIAQ3EGWDLZGQXHH66Y
+        # ACCESS KEY DE ACESSO A CONTA AWS
+        secret_key: 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
+        # SECRET KEY DE ACESSO A CONTA AWS
+        port: 9100
+    relabel_configs:
+      - source_labels: [__meta_ec2_instance_id]
+        target_label: instance

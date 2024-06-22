@@ -8,7 +8,7 @@ resource "aws_key_pair" "key_pair" {
 resource "aws_instance" "wordpress_server" {
   ami                         = var.ami_image
   instance_type               = var.type_instance
-  subnet_id                   = aws_subnet.main.id
+  subnet_id                   = aws_subnet.publica1.id
   associate_public_ip_address = true
   key_name                    = aws_key_pair.key_pair.key_name
   vpc_security_group_ids      = [aws_security_group.sg_wordpress.id]
@@ -18,11 +18,15 @@ resource "aws_instance" "wordpress_server" {
   }
 }
 
-/*resource "aws_instance" "monitoring_server"{
-    ami = var.ami_image
-    instance_type = var.type_instance
-    subnet_id = aws_subnet.main.id
-    associate_public_ip_address = true
-    key_name = aws_key_pair.key_pair.key_name
-    vpc_security_group_ids = 
-}*/
+resource "aws_instance" "monitoring_server" {
+  ami                         = var.ami_image
+  instance_type               = var.type_instance
+  subnet_id                   = aws_subnet.publica1.id
+  associate_public_ip_address = true
+  key_name                    = aws_key_pair.key_pair.key_name
+  vpc_security_group_ids      = [aws_security_group.allow_monitor.id]
+
+  tags = merge(local.common_tags, {
+    Name = "Monitor Michine"
+  })
+}

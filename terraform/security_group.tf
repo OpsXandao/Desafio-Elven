@@ -105,7 +105,7 @@ resource "aws_security_group_rule" "allow_all_traffic_rds_ipv6" {
 resource "aws_security_group" "allow_monitor" {
   name        = "allow_monitor"
   description = "Allows monitoring traffic"
-
+  vpc_id      = aws_vpc.main.id
   tags = {
     Name = "allow_monitor"
   }
@@ -126,14 +126,14 @@ resource "aws_security_group_rule" "allow_monitor_ipv4" {
 resource "aws_security_group_rule" "allow_monitor_grafana" {
   type              = "ingress"
   description       = "Grafana"
-  from_port         = 3000 
+  from_port         = 3000
   to_port           = 3000
   protocol          = "tcp"
   cidr_blocks       = [aws_vpc.main.cidr_block]
   security_group_id = aws_security_group.allow_monitor.id
 }
 
-
+#   Regras de Entrada do Grupo de Segurança para o Prometheus
 resource "aws_security_group_rule" "allow_monitor_prometheus" {
   type              = "ingress"
   description       = "Prometheus"
@@ -144,6 +144,7 @@ resource "aws_security_group_rule" "allow_monitor_prometheus" {
   security_group_id = aws_security_group.allow_monitor.id
 }
 
+#   Regras de Saída do Grupo de Segurança para o ipv4
 resource "aws_security_group_rule" "allow_all_traffic_monitor_ipv4" {
   type              = "egress"
   from_port         = 0

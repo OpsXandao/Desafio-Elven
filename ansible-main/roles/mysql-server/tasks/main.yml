@@ -1,0 +1,9 @@
+---
+  - name: instalacao mysql-server
+    apt:
+      pkg:      
+      - mysql-client
+      - python3-mysqldb
+      - libmysqlclient-dev
+
+      update_cache: yes

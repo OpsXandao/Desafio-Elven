@@ -1,0 +1,12 @@
+---
+  - hosts: localhost
+    become: true
+    #
+    roles:
+      - mysql-server
+      - wordpress
+      
+      
+      
+      
+      
