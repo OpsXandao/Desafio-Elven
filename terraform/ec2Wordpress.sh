@@ -12,7 +12,7 @@ sudo apt install -y unzip
 cd /tmp
 sudo wget https://github.com/OpsXandao/ansible-main/raw/main/ansible-main.zip
 sudo unzip main.zip -d /tmp
-cd /tmp/ansible-main/ansible-main/
+cd /tmp/ansible-main/
 
 # Executa o playbook do Ansible com as variáveis especificadas
 sudo ansible-playbook playbook.yml \

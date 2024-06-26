@@ -1,3 +1,4 @@
+#Configuração Banco de Dados
 resource "aws_db_instance" "bd_wordpress" {
   allocated_storage      = var.allo_stora
   db_name                = var.dbname
